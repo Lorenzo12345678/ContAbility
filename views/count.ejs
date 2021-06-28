@@ -1,0 +1,154 @@
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        
+        <a class="navbar-brand" href="/">ContAbility</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+       
+        <ul class="navbar-nav ">
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/count">Your Count</a>
+          </li>
+          <li class="nav-item" style="margin-right: 0;"> 
+            <a class="nav-link" href="/user/logout">Logout</a>
+          </li>
+          
+        </ul>
+
+       
+      </div>
+    </nav>
+
+    <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= error.msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% }); %> <% } %> <% if(success_msg != ''){ %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success_msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %> <% if(error_msg != ''){ %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error_msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %> <% if(error != ''){ %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %>
+    <div class="container mt-4 p-3" style="display: flex; justify-content: space-between;">
+        <div class="card border-success mb-3" style="width: 25%;">
+            <div class="card-header">Income</div>
+            <div class="card-body">
+              <h4 class="card-title text-center">Total Income </h4>
+              <p class="card-text" style="text-align: center; font-size: larger; color:green;"><%= income %> </p>
+            </div>
+          </div>
+          <div class="card border-danger mb-3" style="width: 25%;">
+            <div class="card-header">Expense</div>
+            <div class="card-body">
+              <h4 class="card-title text-center">Total Expense</h4>
+              <p class="card-text" style="text-align: center; font-size: larger; color: red;"> <%= expense %></p>
+            </div>
+          </div>
+      <% if( plus > 0 ) {%>
+        <div class="card border-success mb-3" style="width: 25%;">
+          <div class="card-header">Capital Gain</div>
+          <div class="card-body">
+            <h4 class="card-title text-center"><span style="color: green">Total Capital Gain</span> </h4>
+            <p class="card-text" style="text-align: center; font-size: larger; color:green;"><%= plus %> </p>
+          </div>
+        </div>
+      
+        <% } else { %>
+          <div class="card border-danger mb-3" style="width: 25%;">
+            <div class="card-header">Capital Gain</div>
+            <div class="card-body">
+              <h4 class="card-title text-center"><span style="color: red;">Total Capital Gain</span>  </h4>
+              <p class="card-text" style="text-align: center; font-size: larger; color:red;"><%= plus %> </p>
+            </div>
+          </div>
+          <% } %>
+    </div> 
+
+<div class="container mt-5" style="text-align: center ;">
+   <a href="/user/income"> <button type="button" class="btn btn-success">Add new income</button></a>
+  <a href="/user/expense"> <button type="button" class="btn btn-danger">Add new expense</button></a>
+</div>    
+
+
+<div class="d-flex">
+        <div class="container">
+        <table class="table table-hover mt-5">
+          <thead>
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Value</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+
+       <% for(let i = 0; i < totIncome.length; i++){ %>
+        <tr class="table-success">
+          <th scope="row">Income</th>
+          <td><%= totIncome[i].value %></td>
+          <td><%= totIncome[i].reason %></td>
+          <td><%= totIncome[i].date.getDate()%>/ <%= totIncome[i].date.getMonth() %>/ <%= totIncome[i].date.getFullYear() %></td>
+        </tr>
+        <% } %>
+       
+        </tbody>
+        </table>
+        </div>
+
+        <div class="container">
+        <table class="table table-hover mt-5">
+          <thead>
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Value</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(let j = 0; j < totExpense.length; j++){ %>
+              <tr class="table-danger">
+                <th scope="row">Expense</th>
+                <td><%= totExpense[j].value %></td>
+                <td><%= totExpense[j].reason %></td>
+                <td><%= totExpense[j].date.getDate()%>/ <%= totExpense[j].date.getMonth() %>/ <%= totExpense[j].date.getFullYear() %></td>
+              </tr>
+              <% } %>
+             
+   
+      </tbody>
+    </table>
+  </div>
+</div>
